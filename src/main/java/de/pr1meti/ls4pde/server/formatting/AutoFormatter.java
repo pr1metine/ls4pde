@@ -26,9 +26,6 @@ import java.util.regex.Pattern;
 
 import de.pr1meti.ls4pde.util.Expand;
 
-//import processing.app.Preferences;
-// import processing.core.Expand;
-
 /**
  * Handler for dealing with auto format. Contributed by Martin Gomez, additional
  * bug fixes by Ben Fry. Additional fixes by Jonathan Feinberg in March 2010.
@@ -103,6 +100,14 @@ public class AutoFormatter implements Formatter {
 
     /** The last non-space seen by nextChar(). */
     private char lastNonWhitespace = 0;
+
+    public AutoFormatter(int indentValue) {
+        this.indentValue = indentValue;
+    }
+
+    public AutoFormatter() {
+        this(4);
+    }
 
     private void handleMultiLineComment() {
         final boolean savedStartFlag = startFlag;
@@ -260,7 +265,7 @@ public class AutoFormatter implements Formatter {
      * chars[pos] != ' ' already, it will still move on. Then sets EOF if pos has
      * reached the end, or reverses pos by 1 if it has not. <br/>
      * Does nothing if EOF.
-     * 
+     *
      * @param allWsp (boolean) Eat newlines too (all of Character.isWhiteSpace()).
      */
     private void advanceToNonSpace(boolean allWsp) {
@@ -320,7 +325,7 @@ public class AutoFormatter implements Formatter {
     /**
      * Pump any '\t' and ' ' to buf, handle any following comment, and if the next
      * character is '\n', discard it.
-     * 
+     *
      * @return Whether a '\n' was found and discarded.
      */
     private boolean readForNewLine() {
@@ -439,7 +444,7 @@ public class AutoFormatter implements Formatter {
         // Globals' description at top of file.
         result.setLength(0);
         // indentValue = Preferences.getInteger("editor.tabs.size");
-        indentValue = 4;
+        // indentValue = 2;
 
         boolean forFlag = if_flg = false;
         startFlag = true;
@@ -867,4 +872,5 @@ public class AutoFormatter implements Formatter {
     static private String simpleRegexCleanup(String result) {
         return result.replaceAll("([^ \n]+) +\n", "$1\n"); // Remove trail whitespace
     }
+
 }

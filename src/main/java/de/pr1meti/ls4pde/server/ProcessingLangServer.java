@@ -115,33 +115,24 @@ public class ProcessingLangServer
                 Path filePath = Path.of(URI.create(fileUri));
 
                 String before = Files.readString(filePath);
-                AutoFormatter autoFormatter = new AutoFormatter();
+                AutoFormatter autoFormatter = new AutoFormatter(params.getOptions().getTabSize());
                 String after = autoFormatter.format(before);
 
                 textEdit.setNewText(after);
 
                 Range selectAll = new Range();
                 selectAll.setStart(new Position(0, 0));
+                selectAll.setEnd(new Position(Integer.MAX_VALUE, Integer.MAX_VALUE));
 
-                // Determining the End position for selection Range
-                long lastIdx = before.lines().count();
-                int lastCharAtLastLine = before.lines().skip(lastIdx).mapToInt(String::length).findFirst().orElse(50); // Random
-                                                                                                                       // range
-                                                                                                                       // which
-                                                                                                                       // likely
-                                                                                                                       // encompasses
-                                                                                                                       // the
-                                                                                                                       // last
-                                                                                                                       // char
-                selectAll.setEnd(new Position((int) lastIdx, lastCharAtLastLine));
                 textEdit.setRange(selectAll);
 
-                return Collections.singletonList(textEdit);
             } catch (Exception e) {
-                return Collections.singletonList(textEdit);
+                e.printStackTrace();
+                return new ArrayList<TextEdit>(0);
             }
+
+            return Collections.singletonList(textEdit);
         });
-        // return null;
     }
 
     public static void main(String[] args) {
