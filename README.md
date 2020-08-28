@@ -3,7 +3,7 @@
 </h1>
 <p align="center">
     A Java implementation of the Language Server Protocol for
-    [Processing 4](https://github.com/processing/processing4)
+    <a href="https://github.com/processing/processing4">Processing 4</a>
 </p>
 
 ## Online Resources:
