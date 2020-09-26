@@ -10,7 +10,7 @@ sourceCompatibility=11
 targetCompatibility=11
 mainClassName = "de.pr1meti.ls4pde.client.StdioLauncher"
 
-group 'de.pr1meti.jls4p'
+group 'de.pr1meti.ls4pde'
 version '1.0-SNAPSHOT'
 
 repositories {

@@ -8,20 +8,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.ArrayList;
 
-import org.eclipse.lsp4j.DidChangeConfigurationParams;
-import org.eclipse.lsp4j.DidChangeTextDocumentParams;
-import org.eclipse.lsp4j.DidChangeWatchedFilesParams;
-import org.eclipse.lsp4j.DidCloseTextDocumentParams;
-import org.eclipse.lsp4j.DidOpenTextDocumentParams;
-import org.eclipse.lsp4j.DidSaveTextDocumentParams;
-import org.eclipse.lsp4j.DocumentFormattingParams;
-import org.eclipse.lsp4j.InitializeParams;
-import org.eclipse.lsp4j.InitializeResult;
-import org.eclipse.lsp4j.Position;
-import org.eclipse.lsp4j.Range;
-import org.eclipse.lsp4j.ServerCapabilities;
-import org.eclipse.lsp4j.ServerInfo;
-import org.eclipse.lsp4j.TextEdit;
+import org.eclipse.lsp4j.*;
 import org.eclipse.lsp4j.services.LanguageClient;
 import org.eclipse.lsp4j.services.LanguageClientAware;
 import org.eclipse.lsp4j.services.LanguageServer;
@@ -50,6 +37,7 @@ public class ProcessingLangServer
 
             ServerCapabilities capabilities = new ServerCapabilities();
             capabilities.setDocumentFormattingProvider(true);
+            capabilities.setTextDocumentSync(TextDocumentSyncKind.Full);
 
             result.setCapabilities(capabilities);
             result.setServerInfo(info);
@@ -129,7 +117,7 @@ public class ProcessingLangServer
 
             } catch (Exception e) {
                 e.printStackTrace();
-                return new ArrayList<TextEdit>(0);
+                return new ArrayList<>(0);
             }
 
             return Collections.singletonList(textEdit);
